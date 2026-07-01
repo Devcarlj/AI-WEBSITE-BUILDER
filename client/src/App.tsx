@@ -3,16 +3,24 @@ import Home from './pages/Home'
 import Projects from './pages/Projects'
 import Pricing from './pages/Pricing'
 import Community from './pages/Community'
-import { Routes } from 'react-router-dom'
+import { Routes, useLocation } from 'react-router-dom'
 import Preview from './pages/Preview'
 import MyProjects from './pages/MyProjects'
 import View from './pages/View'
 import NavBar from './components/NavBar'
 
 const App = () => {
+
+  const {pathname} = useLocation()
+  const hideNavbar = pathname.startsWith('/projects') && pathname !== '/projects' || pathname.startsWith('view') || pathname.startsWith('preview')
+
+
+
   return (
     <div>
-      <NavBar />
+
+      {!hideNavbar && <NavBar />}
+      
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/projects/:projectId" element={<Projects />} />
