@@ -1,9 +1,10 @@
 import { DownloadIcon, EyeIcon, EyeOffIcon, FullscreenIcon, LaptopIcon, Loader2, Loader2Icon, MessageSquare, SaveIcon, SmartphoneIcon, TabletIcon, X } from "lucide-react" // Cleaned up "Icon" suffix
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Link, useNavigate, useParams } from "react-router-dom"
 import { dummyConversations, dummyProjects, dummyVersion } from "../assets/assets"
 import type { Project } from "../types"
 import Sidebar from "../components/Sidebar"
+import ProjectPreview, { type ProjectPreviewRef } from "../components/ProjectPreview"
 
 const Projects = () => {
   const { projectId } = useParams();
@@ -15,6 +16,9 @@ const Projects = () => {
   const [device, setDevice] = useState<'phone' | 'tablet' | 'desktop'>("desktop")
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
+
+  const previewRef = useRef<ProjectPreviewRef>(null)
+
 
   const fetchProject = async () => {
     // Using loose equality (==) to prevent string vs number mismatch bugs
@@ -33,8 +37,20 @@ const Projects = () => {
 
   }
 
-  const downloadCode = async() => {
-
+  const downloadCode = ()=>{
+  const code = previewRef.current?.getCode() || project?.current_code;
+  if(!code) {
+  if(isGenerating){
+  return
+  }
+  return
+  }
+  const element = document. createElement('a');
+  const file = new Blob( [code], {type: "text/html"});
+  element.href = URL.createObjectURL(file)
+  element. download = "index.html";
+  document. body. appendChild(element)
+  element.click();
   }
 
   const togglePublish = async () => {
@@ -139,6 +155,11 @@ const Projects = () => {
       <div className='flex-1 flex overflow-auto'>
         <Sidebar isMenuOpen={isMenuOpen} project={project} setProject={(p) => setProject(p)}
          isGenerating ={isGenerating} setIsGenerating={setIsGenerating} />
+    
+
+    <div className="flex-1 p-2 pl-0">
+            <ProjectPreview ref={previewRef} project={project} isGenerating={isGenerating} device={device}/>
+    </div>
     </div>
 
     </div>
