@@ -12,7 +12,7 @@ import NavBar from './components/NavBar'
 const App = () => {
 
   const {pathname} = useLocation()
-  const hideNavbar = pathname.startsWith('/projects') && pathname !== '/projects' || pathname.startsWith('view') || pathname.startsWith('preview')
+  const hideNavbar = pathname.startsWith('/projects') && pathname !== '/projects' || pathname.startsWith('/view') || pathname.startsWith('preview')
 
 
 
@@ -29,7 +29,8 @@ const App = () => {
         <Route path="/community" element={<Community />} />
         <Route path="/preview" element={<Preview />} />
         <Route path="/preview/:projectId/:versionId" element={<Preview />} />
-         <Route path="/view/" element={<View />} />
+        <Route path="/view/:projectId" element={<View />} />
+        <Route path="/preview/:projectId" element={<Preview />} />
         
           
       </Routes>

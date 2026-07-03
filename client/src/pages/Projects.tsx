@@ -18,6 +18,7 @@ const Projects = () => {
   const [isSaving, setIsSaving] = useState(false)
 
   const previewRef = useRef<ProjectPreviewRef>(null)
+  
 
 
   const fetchProject = async () => {
@@ -127,7 +128,7 @@ const Projects = () => {
             Save
           </button >
 
-          <Link target="_blank" to={`/preview/${projectId}`} className='flex items-center gap-2 px-4 py-1 rounded sm:rounded-sm
+          <Link target="_blank"  to={`/preview/${projectId}`}  className='flex items-center gap-2 px-4 py-1 rounded sm:rounded-sm
           border border-gray-700  hover:border-gray-500 transition-colors' >
             <FullscreenIcon size={16} />
             Preview

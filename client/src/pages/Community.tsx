@@ -44,6 +44,7 @@ const Community = () => {
               {projects.map((project) => (
                 
                 <Link
+                  target="_blank"
                   key={project.id}
                   to={`/view/${project.id}`}
                   className="relative group w-72 bg-gray-900/60 border border-gray-700 rounded-lg overflow-hidden shadow-md hover:shadow-indigo-700/30 hover:border-indigo-800/80"
